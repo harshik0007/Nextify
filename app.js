@@ -1,0 +1,49 @@
+const express = require("express");
+const app = express();
+const methodOverride = require("method-override");
+const path = require("path");
+const port = 3000;
+
+const mongoose = require("mongoose");
+const MONGO_URL = "mongodb://127.0.0.1:27017/nextify";
+
+const Listing = require("./models/listing.js");
+
+main()
+  .then((res) => console.log("Successfully connection built"))
+  .catch((e) => console.log(e));
+
+async function main() {
+  await mongoose.connect(MONGO_URL);
+}
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "/views"));
+
+app.use(express.static(path.join(__dirname, "/public/css")));
+app.use(express.static(path.join(__dirname, "/public/js")));
+
+app.use(methodOverride("_method"));
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("Hello world!");
+});
+
+app.get("/testListings", async (req, res) => {
+  let sampleListing = await new Listing({
+    title: "Villa",
+    description: "Front of beach",
+    price: 2000,
+    location: "Calangute, Goa",
+    country: "India",
+  });
+  await sampleListing.save();
+  res.send("Success fully done");
+});
+
+app.listen(port, () => {
+  console.log("Server is listning on port:", port);
+});
