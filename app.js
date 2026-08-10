@@ -26,6 +26,11 @@ app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+//new route
+app.get("/listings/new", (req, res) => {
+  res.render("listings/new.ejs");
+});
+
 //show route
 app.get("/listings/:id", async (req, res) => {
   const { id } = req.params;
