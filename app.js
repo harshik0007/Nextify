@@ -22,26 +22,12 @@ app.set("views", path.join(__dirname, "/views"));
 
 app.use(express.static(path.join(__dirname, "/public/css")));
 app.use(express.static(path.join(__dirname, "/public/js")));
-
 app.use(methodOverride("_method"));
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Hello world!");
-});
-
-app.get("/testListings", async (req, res) => {
-  let sampleListing = await new Listing({
-    title: "Villa",
-    description: "Front of beach",
-    price: 2000,
-    location: "Calangute, Goa",
-    country: "India",
-  });
-  await sampleListing.save();
-  res.send("Success fully done");
 });
 
 app.listen(port, () => {
