@@ -33,3 +33,42 @@ body {
   color: #ff385c;
   opacity: 1;
 }
+
+.f-info {
+  height: 8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border-top: 1px solid #dee2e6;
+  background-color: white;
+}
+
+.f-info-socials {
+  width: 10%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.f-info-socials i {
+  font-size: 1.5rem;
+  opacity: 0.85;
+}
+
+.f-info-socials i:hover {
+  opacity: 1;
+}
+
+.f-info-nextify {
+  font-weight: 600;
+}
+
+.f-info-links a {
+  text-decoration: none;
+  font-weight: 500;
+  color: #222222;
+}
+
+.f-info-links a:hover {
+  border-bottom: 1px solid black;
+}
