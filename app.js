@@ -28,9 +28,17 @@ app.use(express.json());
 
 //Edit form route
 app.get("/listings/:id/edit", async (req, res) => {
-  let listing = await Listing.findById(req.params.id);
+  const listing = await Listing.findById(req.params.id);
   res.render("listings/edit.ejs", { listing });
 });
+
+//  Update route
+app.put("/listings/:id", async (req, res) => {
+  let { id } = req.params;
+  await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+  res.redirect("/listings");
+});
+
 //new route
 app.get("/listings/new", (req, res) => {
   res.render("listings/new.ejs");
