@@ -26,6 +26,14 @@ app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+//show route
+app.get("/listings/:id", async (req, res) => {
+  const { id } = req.params;
+  let listing = await Listing.findById(id);
+
+  res.render("listings/show.ejs", { listing });
+});
+
 //index route
 app.get("/listings", async (req, res) => {
   const allListings = await Listing.find({});
