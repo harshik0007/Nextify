@@ -26,6 +26,11 @@ app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+//Edit form route
+app.get("/listings/:id/edit", async (req, res) => {
+  let listing = await Listing.findById(req.params.id);
+  res.render("listings/edit.ejs", { listing });
+});
 //new route
 app.get("/listings/new", (req, res) => {
   res.render("listings/new.ejs");
@@ -37,6 +42,7 @@ app.post("/listings", async (req, res) => {
   await newListing.save();
   res.redirect("/listings");
 });
+
 //show route
 app.get("/listings/:id", async (req, res) => {
   const { id } = req.params;
