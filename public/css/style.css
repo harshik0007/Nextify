@@ -1,3 +1,34 @@
 body {
-  background-color: rgb(233, 0, 0);
+}
+
+.navbar {
+  height: 5rem;
+  background-color: white;
+}
+
+.logo_image {
+  height: 2.7rem;
+  width: 4rem;
+}
+
+.nav-link {
+  color: #222222 !important;
+  opacity: 0.85;
+}
+
+.nav-link:hover {
+  opacity: 1;
+}
+
+.navbar-brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ff385c;
+  opacity: 0.75;
+}
+
+.navbar-brand:hover {
+  color: #ff385c;
+  opacity: 1;
 }
