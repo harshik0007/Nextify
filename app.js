@@ -26,6 +26,12 @@ app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+//index route
+app.get("/listings", async (req, res) => {
+  const allListings = await Listing.find({});
+  res.render("listings/index.ejs", { allListings });
+});
+
 app.get("/", (req, res) => {
   res.send("Hello world!");
 });

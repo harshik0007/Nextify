@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h3>All Listings</h3>
+    <form method="get" action="/listings/new">
+        <button>Create New Listing</button>
+    </form>
+    <ul>
+    <% for(let i = 0; i < allListings.length; i++) { %>
+        <a href="/listings/<%= allListings[i]._id %>">
+            <li><%= allListings[i].title %></li>
+            <li><%= allListings[i].description %></li>
+            <li><img src="<%= allListings[i].image %>" alt="" /></li>
+            <li>&#8377; <%= allListings[i].price.toLocaleString("en-In") %></li>
+            <li><%= allListings[i].location %></li>
+            <li><%= allListings[i].country %></li>
+        </a>
+        <br><br><br><br>
+    <%}%>
+    </ul>
+  </body>
+</html>
