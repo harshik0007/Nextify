@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const methodOverride = require("method-override");
 const path = require("path");
+const ejsMate = require("ejs-mate");
 const port = 3000;
 
 const mongoose = require("mongoose");
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, "/public/js")));
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.engine("ejs", ejsMate);
 
 //Edit form route
 app.get("/listings/:id/edit", async (req, res) => {
