@@ -12,9 +12,14 @@ body {
   width: 4rem;
 }
 
+.logo_text {
+  font-weight: 600;
+}
+
 .nav-link {
   color: #222222 !important;
   opacity: 0.85;
+  font-weight: 500;
 }
 
 .nav-link:hover {
@@ -51,7 +56,7 @@ body {
 }
 
 .f-info-socials i {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   opacity: 0.85;
 }
 
