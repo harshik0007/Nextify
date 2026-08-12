@@ -31,7 +31,7 @@ body {
   justify-content: center;
   align-items: center;
   color: #ff385c;
-  opacity: 0.75;
+  opacity: 0.85;
 }
 
 .navbar-brand:hover {
@@ -40,7 +40,7 @@ body {
 }
 
 .f-info {
-  height: 8rem;
+  height: 8.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
