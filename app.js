@@ -76,7 +76,7 @@ app.get("/listings", async (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Hello world!");
+  res.redirect("/listings");
 });
 
 app.listen(port, () => {
