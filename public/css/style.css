@@ -1,6 +1,15 @@
 body {
   font-family: "Inter", sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
+
+.container {
+  flex: 1;
+}
+
+/* navbar */
 
 .navbar {
   height: 5rem;
@@ -43,6 +52,8 @@ body {
   z-index: 3;
 }
 
+/* footer */
+
 .f-info {
   height: 8.5rem;
   display: flex;
@@ -82,6 +93,8 @@ body {
   border-bottom: 1px solid black;
 }
 
+/* card */
+
 .card {
   border: none !important;
   margin-bottom: 2rem;
@@ -106,6 +119,7 @@ body {
 }
 
 /* card effect */
+
 .card-img-overlay {
   opacity: 0;
   background-color: white;
@@ -115,4 +129,18 @@ body {
 
 .card-img-overlay:hover {
   opacity: 0.2;
+}
+
+/* new page */
+
+.add {
+  height: 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+@media (max-width: 500px) {
+  .add {
+    width: 5rem !important;
+  }
 }
