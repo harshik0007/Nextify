@@ -6,9 +6,9 @@ const ejsMate = require("ejs-mate");
 const port = 3000;
 
 const mongoose = require("mongoose");
-const MONGO_URL = "mongodb://127.0.0.1:27017/nextify";
 
 const Listing = require("./models/listing.js");
+const MONGO_URL = "mongodb://127.0.0.1:27017/nextify";
 
 main()
   .then((res) => console.log("Successfully connection built"))
@@ -42,6 +42,7 @@ app.put("/listings/:id", async (req, res) => {
   res.redirect(`/listings/${id}`);
 });
 
+//delete route
 app.delete("/listings/:id", async (req, res) => {
   let { id } = req.params;
   const deletedListing = await Listing.findByIdAndDelete(id);

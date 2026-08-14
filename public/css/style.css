@@ -39,6 +39,10 @@ body {
   opacity: 1;
 }
 
+.navbar-collapse {
+  z-index: 3;
+}
+
 .f-info {
   height: 8.5rem;
   display: flex;
@@ -50,12 +54,12 @@ body {
 }
 
 .f-info-socials {
-  width: 10%;
   display: flex;
   justify-content: space-between;
 }
 
 .f-info-socials i {
+  margin: 0 1rem;
   font-size: 1.75rem;
   opacity: 0.85;
 }
@@ -76,4 +80,39 @@ body {
 
 .f-info-links a:hover {
   border-bottom: 1px solid black;
+}
+
+.card {
+  border: none !important;
+  margin-bottom: 2rem;
+}
+
+.card-img-top {
+  border-radius: 1rem !important;
+  width: 100% !important;
+  object-fit: cover !important;
+}
+
+.card-body {
+  padding: 0;
+}
+
+.card-text p {
+  font-weight: 400 !important;
+}
+
+.listing-link {
+  text-decoration: none;
+}
+
+/* card effect */
+.card-img-overlay {
+  opacity: 0;
+  background-color: white;
+  color: black;
+  transition: opacity 0.3s ease;
+}
+
+.card-img-overlay:hover {
+  opacity: 0.2;
 }
