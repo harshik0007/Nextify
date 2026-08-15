@@ -139,8 +139,29 @@ body {
   font-weight: 500;
 }
 
+/* edit page */
+
+.edit {
+  height: 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* show page */
+.show-img {
+  height: 30vh;
+}
+
+.btn-container {
+  display: flex;
+}
+
 @media (max-width: 500px) {
   .add {
+    width: 5rem !important;
+  }
+
+  .edit {
     width: 5rem !important;
   }
 }
