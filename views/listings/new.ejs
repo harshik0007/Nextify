@@ -4,7 +4,12 @@
   <div class="row">
     <div class="col-md-8 offset-md-2 col-10 offset-1">
       <h3 class="mt-4 mb-3">Create a New Listing</h3>
-      <form method="Post" action="/listings">
+      <form
+        method="Post"
+        action="/listings"
+        novalidate
+        class="needs-validation"
+      >
         <div class="mb-3">
           <label for="title" class="form-label">Title: </label>
           <input
@@ -13,18 +18,23 @@
             name="listing[title]"
             id="title"
             class="form-control"
+            required
           />
+          <div class="valid-feedback">Good title.</div>
+          <div class="invalid-feedback">Enter catchy Title.</div>
         </div>
 
         <div class="mb-3">
-          <label for="textarea" class="form-label">Textarea: </label>
+          <label for="description" class="form-label">Textarea: </label>
           <textarea
             name="listing[description]"
             id="description"
             placeholder="Enter description"
-            id="textarea"
             class="form-control"
+            required
           ></textarea>
+          <div class="valid-feedback">Good description.</div>
+          <div class="invalid-feedback">Enter Description.</div>
         </div>
 
         <div class="mb-3">
@@ -47,7 +57,9 @@
               name="listing[price]"
               id="price"
               class="form-control"
+              required
             />
+            <div class="invalid-feedback">Enter valid Price</div>
           </div>
 
           <div class="mb-3 col-md-8">
@@ -58,8 +70,9 @@
               name="listing[country]"
               id="country"
               class="form-control"
+              required
             />
-          </div>
+          <div class="invalid-feedback">Enter Country.</div>
         </div>
 
         <div class="mb-5">
@@ -70,7 +83,9 @@
             name="listing[location]"
             id="location"
             class="form-control"
+            required
           />
+          <div class="invalid-feedback">Enter Location.</div>
         </div>
 
         <button class="btn btn-danger w-25 mb-5 add">Add</button>
