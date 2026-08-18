@@ -34,6 +34,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.engine("ejs", ejsMate);
 
+const validateListing = (req, res, next) => {
+  let { error } = listingSchema.validate(req.body);
+  if (error) {
+    let errMsg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(400, errMsg);
+  } else {
+    next();
+  }
+};
+
 //Edit form route
 app.get(
   "/listings/:id/edit",
@@ -46,10 +56,8 @@ app.get(
 //  Update route
 app.put(
   "/listings/:id",
+  validateListing,
   wrapAsync(async (req, res) => {
-    if (!req.body.listing) {
-      throw new ExpressError(400, "Valid data required for Listing");
-    }
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     res.redirect(`/listings/${id}`);
@@ -62,7 +70,6 @@ app.delete(
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     const deletedListing = await Listing.findByIdAndDelete(id);
-    console.log(deletedListing);
     res.redirect("/listings");
   }),
 );
@@ -75,11 +82,8 @@ app.get("/listings/new", (req, res) => {
 //Create route
 app.post(
   "/listings",
+  validateListing,
   wrapAsync(async (req, res, next) => {
-    let result = listingSchema.validate(req.body);
-    if (result.error) {
-      throw new ExpressError(400, result.error);
-    }
     const newListing = await new Listing(req.body.listing);
     await newListing.save();
     res.redirect("/listings");
