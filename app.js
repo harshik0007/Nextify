@@ -6,6 +6,8 @@ const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 
+const { listingSchema } = require("./schema.js");
+
 const port = 3000;
 
 const mongoose = require("mongoose");
@@ -74,8 +76,9 @@ app.get("/listings/new", (req, res) => {
 app.post(
   "/listings",
   wrapAsync(async (req, res, next) => {
-    if (!req.body.listing) {
-      throw new ExpressError(400, "Valid data required for Listing");
+    let result = listingSchema.validate(req.body);
+    if (result.error) {
+      throw new ExpressError(400, result.error);
     }
     const newListing = await new Listing(req.body.listing);
     await newListing.save();
