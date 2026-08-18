@@ -1,0 +1,13 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row">
+  <div class="error_img" style="width: 90vw">
+    <img src="/images/error_img.png" alt="error_img" class="mb-3" />
+    <div
+      class="alert alert-danger mb-4 d-flex justify-content-center align-items-center"
+      role="alert"
+    >
+      <span class="warning">&#9888;</span>&nbsp; Error: <%= message %>
+    </div>
+  </div>
+</div>
