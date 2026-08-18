@@ -4,7 +4,12 @@
   <div class="row">
     <div class="col-md-8 offset-md-2 col-10 offset-1">
       <h3 class="mt-4 mb-3">Edit Your Listing</h3>
-      <form method="Post" action="/listings/<%= listing._id %>?_method=PUT">
+      <form
+        method="Post"
+        action="/listings/<%= listing._id %>?_method=PUT"
+        novalidate
+        class="needs-validation"
+      >
         <div class="mb-3">
           <label for="title" class="form-label">Title: </label>
           <input
@@ -15,6 +20,7 @@
             class="form-control"
             value="<%= listing.title %>"
           />
+          <div class="invalid-feedback">Enter catchy Title</div>
         </div>
 
         <div class="mb-3">
@@ -28,6 +34,7 @@
           >
 <%= listing.description %></textarea
           >
+          <div class="invalid-feedback">Enter Description</div>
         </div>
 
         <div class="mb-3">
@@ -40,6 +47,7 @@
             class="form-control"
             value="<%= listing.image %>"
           />
+          <div class="invalid-feedback">Enter Image Link</div>
         </div>
 
         <div class="row">
@@ -53,6 +61,7 @@
               class="form-control"
               value="<%= listing.price %>"
             />
+            <div class="invalid-feedback">Enter valid Price</div>
           </div>
 
           <div class="mb-3 col-md-8">
@@ -65,6 +74,7 @@
               class="form-control"
               value="<%= listing.country %>"
             />
+            <div class="invalid-feedback">Enter Country</div>
           </div>
         </div>
 
@@ -78,6 +88,7 @@
             class="form-control"
             value="<%= listing.location %>"
           />
+          <div class="invalid-feedback">Enter Location</div>
         </div>
 
         <button class="btn btn-danger w-25 mb-5 edit">Edit</button>
