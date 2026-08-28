@@ -101,6 +101,7 @@ body {
 }
 
 .card-img-top {
+  margin-bottom: 0.5rem;
   border-radius: 1rem !important;
   width: 100% !important;
   object-fit: cover !important;
