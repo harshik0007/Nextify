@@ -101,7 +101,7 @@ body {
 }
 
 .card-img-top {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   border-radius: 1rem !important;
   width: 100% !important;
   object-fit: cover !important;
