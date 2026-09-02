@@ -252,6 +252,7 @@ function validateField(field) {
             rules
         );
 
+
     const invalidFeedback =
         field.parentElement.querySelector(
             ".invalid-feedback"
@@ -265,12 +266,15 @@ function validateField(field) {
 
     if (errors.length > 0) {
 
-        field.classList.add("is-invalid");
+        // INVALID
         field.classList.remove("is-valid");
+        field.classList.add("is-invalid");
 
         if (invalidFeedback) {
             invalidFeedback.textContent =
                 errors[0].message;
+
+            invalidFeedback.style.display = "block";
         }
 
         if (validFeedback) {
@@ -281,15 +285,16 @@ function validateField(field) {
 
     } else {
 
+        // VALID
         field.classList.remove("is-invalid");
         field.classList.add("is-valid");
 
-        if (invalidFeedback) {
-            invalidFeedback.textContent = "";
-        }
-
         if (validFeedback) {
             validFeedback.style.display = "block";
+        }
+
+        if (invalidFeedback) {
+            invalidFeedback.style.display = "none";
         }
 
         return true;
@@ -315,19 +320,13 @@ function validateForm() {
 
 fields.forEach((field) => {
 
-    field.addEventListener(
-        "input",
-        () => {
-            validateField(field);
-        }
-    );
+    field.addEventListener("input", () => {
+        validateField(field);
+    });
 
-    field.addEventListener(
-        "change",
-        () => {
-            validateField(field);
-        }
-    );
+    field.addEventListener("change", () => {
+        validateField(field);
+    });
 
 });
 

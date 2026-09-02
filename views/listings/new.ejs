@@ -4,18 +4,18 @@
   <div class="row">
     <div class="col-md-8 offset-md-2 col-10 offset-1">
       <h3 class="mt-4 mb-3">Create a New Listing</h3>
-      <form method="Post" action="/listings" novalidate class="needs-validation">
+      <form method="Post" action="/listings" novalidate>
         <div class="mb-3">
           <label for="title" class="form-label">Title: </label>
           <input type="text" placeholder="Enter catchy title" name="listing[title]" id="title" class="form-control" data-validate data-required="true" data-min-length-s="5" data-max-length-s="100" />
           <div class="valid-feedback">Title looks Good!</div>
-          <div class="invalid-feedback">Enter a catchy Title</div>
+          <div class="invalid-feedback"></div>
         </div>
 
         <div class="mb-3">
           <label for="description" class="form-label">Textarea: </label>
           <textarea name="listing[description]" id="description" placeholder="Enter description" class="form-control" data-validate data-required="true" data-min-length-s="10" data-max-length-s="1000"></textarea>
-          <div class="invalid-feedback">Please enter a short description</div>
+          <div class="invalid-feedback"></div>
         </div>
 
         <div class="mb-3">
@@ -27,22 +27,23 @@
           <div class="mb-3 col-md-4">
             <label for="price" class="form-label">Price: </label>
             <input placeholder="2000" name="listing[price]" id="price" class="form-control" data-validate data-required="true" data-min-value="1" />
-            <div class="invalid-feedback">Please enter valid Price</div>
+            <div class="invalid-feedback"></div>
           </div>
 
           <div class="mb-3 col-md-8">
             <label for="country" class="form-label">Country: </label>
             <input type="text" placeholder="India" name="listing[country]" id="country" class="form-control" data-validate data-required="true" data-min-length-s="2" data-max-length-s="100" />
-            <div class="invalid-feedback">Country name should be valid</div>
+            <div class="invalid-feedback"></div>
           </div>
+        </div>
 
-          <div class="mb-5">
-            <label for="location" class="form-label">Location: </label>
-            <input type="text" placeholder="Rajkot, Gujarat" name="listing[location]" id="location" class="form-control" data-validate data-required="true" data-min-length-s="2" data-max-length-s="200" />
-            <div class="invalid-feedback">Location should be valid</div>
-          </div>
+        <div class="mb-5">
+          <label for="location" class="form-label">Location: </label>
+          <input type="text" placeholder="Rajkot, Gujarat" name="listing[location]" id="location" class="form-control" data-validate data-required="true" data-min-length-s="2" data-max-length-s="200" />
+          <div class="invalid-feedback"></div>
+        </div>
 
-          <button class="btn btn-danger w-25 mb-5 add">Add</button>
+        <button class="btn btn-danger w-25 mb-5 add">Add</button>
       </form>
     </div>
   </div>
