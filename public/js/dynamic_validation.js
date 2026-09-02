@@ -198,3 +198,146 @@ class Dynamic_validation {
         return error;
     }
 }
+
+const form = document.querySelector("form");
+
+const fields =
+    form.querySelectorAll("[data-validate]");
+
+
+function getRules(field) {
+
+    const rules = {};
+
+    for (const attribute of field.attributes) {
+
+        if (!attribute.name.startsWith("data-")) {
+            continue;
+        }
+
+        if (attribute.name === "data-validate") {
+            continue;
+        }
+
+        const ruleName = attribute.name
+            .replace("data-", "")
+            .replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+
+        if (Dynamic_validation.rules[ruleName]) {
+
+            const value = attribute.value;
+
+            rules[ruleName] =
+                value === "true"
+                    ? true
+                    : value === "false"
+                        ? false
+                        : value;
+        }
+    }
+
+    return rules;
+}
+
+
+function validateField(field) {
+
+    const rules = getRules(field);
+
+    const value = field.value;
+
+    const errors =
+        Dynamic_validation.validate(
+            value,
+            rules
+        );
+
+    const invalidFeedback =
+        field.parentElement.querySelector(
+            ".invalid-feedback"
+        );
+
+    const validFeedback =
+        field.parentElement.querySelector(
+            ".valid-feedback"
+        );
+
+
+    if (errors.length > 0) {
+
+        field.classList.add("is-invalid");
+        field.classList.remove("is-valid");
+
+        if (invalidFeedback) {
+            invalidFeedback.textContent =
+                errors[0].message;
+        }
+
+        if (validFeedback) {
+            validFeedback.style.display = "none";
+        }
+
+        return false;
+
+    } else {
+
+        field.classList.remove("is-invalid");
+        field.classList.add("is-valid");
+
+        if (invalidFeedback) {
+            invalidFeedback.textContent = "";
+        }
+
+        if (validFeedback) {
+            validFeedback.style.display = "block";
+        }
+
+        return true;
+    }
+}
+
+
+function validateForm() {
+
+    let formValid = true;
+
+    fields.forEach((field) => {
+
+        if (!validateField(field)) {
+            formValid = false;
+        }
+
+    });
+
+    return formValid;
+}
+
+
+fields.forEach((field) => {
+
+    field.addEventListener(
+        "input",
+        () => {
+            validateField(field);
+        }
+    );
+
+    field.addEventListener(
+        "change",
+        () => {
+            validateField(field);
+        }
+    );
+
+});
+
+
+form.addEventListener("submit", (e) => {
+
+    const formValid = validateForm();
+
+    if (!formValid) {
+        e.preventDefault();
+    }
+
+});
