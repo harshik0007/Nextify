@@ -4,96 +4,43 @@
   <div class="row">
     <div class="col-md-8 offset-md-2 col-10 offset-1">
       <h3 class="mt-4 mb-3">Edit Your Listing</h3>
-      <form
-        method="Post"
-        action="/listings/<%= listing._id %>?_method=PUT"
-        novalidate
-        class="needs-validation"
-        required
-      >
+      <form method="Post" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation" required>
         <div class="mb-3">
           <label for="title" class="form-label">Title: </label>
-          <input
-            type="text"
-            placeholder="Enter catchy title"
-            name="listing[title]"
-            id="title"
-            class="form-control"
-            value="<%= listing.title %>"
-            required
-          />
+          <input type="text" placeholder="Enter catchy title" name="listing[title]" id="title" class="form-control" value="<%= listing.title %>" data-validate data-required="true" data-min-length-s="5" data-max-length-s="100" />
           <div class="invalid-feedback">Enter a catchy Title</div>
         </div>
 
         <div class="mb-3">
           <label for="textarea" class="form-label">Textarea: </label>
-          <textarea
-            name="listing[description]"
-            id="description"
-            placeholder="Enter description"
-            id="textarea"
-            class="form-control"
-            required
-          >
-<%= listing.description %></textarea
-          >
+          <textarea name="listing[description]" id="description" placeholder="Enter description" id="textarea" class="form-control" data-validate data-required="true" data-min-length-s="10" data-max-length-s="1000">
+<%= listing.description %></textarea>
           <div class="invalid-feedback">Please enter a short description</div>
         </div>
 
         <div class="mb-3">
           <label for="image" class="form-label">Image url: </label>
-          <input
-            type="text"
-            placeholder="Enter image url"
-            name="listing[image]"
-            id="image"
-            class="form-control"
-            value="<%= listing.image %>"
-            required
-          />
+          <input type="text" placeholder="Enter image url" name="listing[image]" id="image" class="form-control" value="<%= listing.image %>" data-validate data-required="true" />
           <div class="invalid-feedback">Image link should be valid</div>
         </div>
 
         <div class="row">
           <div class="mb-3 col-md-4">
             <label for="price" class="form-label">Price: </label>
-            <input
-              placeholder="2000"
-              name="listing[price]"
-              id="price"
-              class="form-control"
-              value="<%= listing.price %>"
-              required
-            />
+            <input placeholder="2000" name="listing[price]" id="price" class="form-control" value="<%= listing.price %>" data-validate data-required="true" data-min-value="1" />
             <div class="invalid-feedback">Please enter a valid Price</div>
           </div>
 
           <div class="mb-3 col-md-8">
             <label for="country" class="form-label">Country: </label>
-            <input
-              type="text"
-              placeholder="India"
-              name="listing[country]"
-              id="country"
-              class="form-control"
-              value="<%= listing.country %>"
-              required
-            />
+            <input type="text" placeholder="India" name="listing[country]" id="country" class="form-control" value="<%= listing.country %>" data-validate data-required="true" data-min-length-s="2" data-max-length-s="100" />
             <div class="invalid-feedback">Country name should be valid</div>
           </div>
         </div>
 
         <div class="mb-5">
           <label for="location" class="form-label">Location: </label>
-          <input
-            type="text"
-            placeholder="Rajkot, Gujarat"
-            name="listing[location]"
-            id="location"
-            class="form-control"
-            value="<%= listing.location %>"
-            required
-          />
+          <input type="text" placeholder="Rajkot, Gujarat" name="listing[location]" id="location" class="form-control" value="<%= listing.location %>" data-validate data-required="true" data-min-length-s="2" data-max-length-s="200" />
           <div class="invalid-feedback">Location should be valid</div>
         </div>
 
