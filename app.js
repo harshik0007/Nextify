@@ -7,12 +7,15 @@ const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 
 const { listingSchema } = require("./schema.js");
+const { reviewSchema } = require("./schema.js");
+
 
 const port = 3000;
 
 const mongoose = require("mongoose");
 
 const Listing = require("./models/listing.js");
+const Review = require("./models/review.js");
 const MONGO_URL = "mongodb://127.0.0.1:27017/nextify";
 
 main()
@@ -43,6 +46,16 @@ const validateListing = (req, res, next) => {
     next();
   }
 };
+
+const validateReview = (req, res, next) => {
+  let { error } = reviewSchema.validate(req.body);
+  if (error) {
+    let errMsg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(400, errMsg);
+  } else {
+    next();
+  }
+}
 
 //Edit form route
 app.get(
@@ -113,6 +126,22 @@ app.get(
 app.get("/", (req, res) => {
   res.redirect("/listings");
 });
+
+//reviews
+//post
+app.post("/listings/:id/reviews", validateReview, wrapAsync(async (req, res, next) => {
+  let { id } = req.params;
+  let listing = await Listing.findById(id);
+  let newReview = new Review(req.body.review);
+
+  listing.reviews.push(newReview);
+
+  await newReview.save();
+  await listing.save();
+
+  res.redirect(`/listings/${id}`);
+
+}));
 
 app.all("/{*splat}", (req, res, next) => {
   next(new ExpressError(404, "Page Note Found!"));

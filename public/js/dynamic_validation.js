@@ -199,7 +199,7 @@ class Dynamic_validation {
     }
 }
 
-const form = document.querySelector("form");
+const form = document.querySelector(".validateForm");
 
 const fields =
     form.querySelectorAll("[data-validate]");
