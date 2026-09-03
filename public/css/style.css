@@ -175,6 +175,12 @@ body {
   font-size: 1.5rem;
 }
 
+@media (max-width: 1000px) {
+  .error_img img {
+    width: 90% !important;
+  }
+}
+
 @media (max-width: 500px) {
   .add {
     width: 5rem !important;
@@ -182,5 +188,9 @@ body {
 
   .edit {
     width: 5rem !important;
+  }
+
+  .error_img img {
+    width: 100% !important;
   }
 }
