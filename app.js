@@ -108,7 +108,7 @@ app.get(
   "/listings/:id",
   wrapAsync(async (req, res) => {
     const { id } = req.params;
-    let listing = await Listing.findById(id);
+    let listing = await Listing.findById(id).populate("reviews");
 
     res.render("listings/show.ejs", { listing });
   }),
@@ -128,7 +128,7 @@ app.get("/", (req, res) => {
 });
 
 //reviews
-//post
+//post for a review
 app.post("/listings/:id/reviews", validateReview, wrapAsync(async (req, res, next) => {
   let { id } = req.params;
   let listing = await Listing.findById(id);
@@ -142,6 +142,16 @@ app.post("/listings/:id/reviews", validateReview, wrapAsync(async (req, res, nex
   res.redirect(`/listings/${id}`);
 
 }));
+
+//delete a review
+app.delete("/listings/:id/reviews/:reviewId", wrapAsync(async (req, res, next) => {
+  let { id, reviewId } = req.params;
+
+  await Listing.findOneAndUpdate({ id: `${id}` }, { $pull: { reviews: reviewId } })
+  await Review.findByIdAndDelete(reviewId);
+
+  res.redirect(`/listings/${id}`);
+}))
 
 app.all("/{*splat}", (req, res, next) => {
   next(new ExpressError(404, "Page Note Found!"));
