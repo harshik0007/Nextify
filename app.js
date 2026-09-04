@@ -29,10 +29,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.engine("ejs", ejsMate);
 
+
 const sessionOptions = {
   secret: "supersecretrarecodestring",
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: {
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 3,
+    maxAge: 1000 * 60 * 60 * 24 * 3,
+    httpOnly: true,
+  }
 }
 
 app.use(session(sessionOptions));
