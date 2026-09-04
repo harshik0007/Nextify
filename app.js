@@ -7,6 +7,7 @@ const ExpressError = require("./utils/ExpressError.js");
 const mongoose = require("mongoose");
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
+const session = require("express-session");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/nextify";
 
@@ -20,7 +21,6 @@ async function main() {
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
-
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(express.static(path.join(__dirname, "/public/css")));
 app.use(express.static(path.join(__dirname, "/public/js")));
@@ -28,6 +28,14 @@ app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.engine("ejs", ejsMate);
+
+const sessionOptions = {
+  secret: "supersecretrarecodestring",
+  resave: false,
+  saveUninitialized: true
+}
+
+app.use(session(sessionOptions));
 
 app.get("/", (req, res) => {
   res.redirect("/listings");
