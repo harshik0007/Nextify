@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
 const session = require("express-session");
+const flash = require("connect-flash");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/nextify";
 
@@ -41,11 +42,18 @@ const sessionOptions = {
   }
 }
 
-app.use(session(sessionOptions));
-
 app.get("/", (req, res) => {
   res.redirect("/listings");
 });
+
+app.use(session(sessionOptions));
+app.use(flash()); //make sure use before routes
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+})
 
 app.use("/listings", listings);
 app.use("/listings/:id/reviews", reviews);
