@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const passportLocalMongoose = require("passport-local-mongoose");
+const passportLocalMongoose = require("passport-local-mongoose").default;//gives object inside it funtion so we need to do .default
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -8,8 +8,8 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-const User = mongoose.model("User", userSchema);
+userSchema.plugin(passportLocalMongoose);
 
-User.plugin(passportLocalMongoose);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;

@@ -74,10 +74,12 @@ class Dynamic_validation {
         },
 
         sameAs: {
-            validate: (value, otherValue) => {
-                return value === otherValue;
+            validate: (value, otherFieldId) => {
+                const otherField = document.getElementById(otherFieldId);
+
+                return otherField && value === otherField.value;
             },
-            message: "Values do not match"
+            message: "Enter correct password not match with entered password"
         },
 
         imageUpload: {
