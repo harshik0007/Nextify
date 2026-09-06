@@ -10,6 +10,7 @@
       <img src="<%= listing.image %>" class="card-img-top show-img" alt="Image" />
       <div class="card-body">
         <p class="card-text">
+          <b><%= listing.owner.username %></b><br>
           <%= listing.description %> <br />
           &#8377; <%= listing.price.toLocaleString("en-In") %> <br />
           <%= listing.country %> <br />

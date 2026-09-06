@@ -3,6 +3,7 @@ const User = require("../models/user");
 const router = express.Router({ mergeParams: true });
 const wrapAsync = require("../utils/wrapAsync.js");
 const passport = require("passport");
+const { saveRedirectUrl } = require("../middleware.js");
 
 router.get("/signup", (req, res, next) => {
     res.render("users/signup.ejs");
@@ -30,9 +31,9 @@ router.get("/login", (req, res, next) => {
     res.render("users/login.ejs");
 })
 
-router.post("/login", passport.authenticate("local", { failureRedirect: "/login", failureFlash: true }), async (req, res, next) => {
+router.post("/login", saveRedirectUrl, passport.authenticate("local", { failureRedirect: "/login", failureFlash: true }), async (req, res, next) => {
     req.flash("success", "Welcome back to Nextify!");
-    res.redirect("/listings");
+    res.redirect(res.locals.redirectUrl || "/listings");
 })
 
 router.get("/logout", (req, res, next) => {
