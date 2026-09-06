@@ -18,7 +18,7 @@
           <div class="invalid-feedback"></div>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 password_div">
           <label for="password" class="form-label">Password: </label>
           <input type="password" placeholder="********" name="user[password]" id="password" class="form-control" data-validate data-required="true" data-password="8" />
           <div class="invalid-feedback"></div>
@@ -28,9 +28,14 @@
           <label for="confirm-password" class="form-label">Password: </label>
           <input type="password" placeholder="********" id="confirm-password" class="form-control" data-validate data-required="true" data-same-as="password" />
           <div class="invalid-feedback"></div>
+          <div class="show-hide-forget-container mt-3">
+            <button type="button" class=" btn btn-outline-dark btn-sm  password_toggler hide-password">Show Password</button>
+            <a href="">Forget Password ? </a>
+          </div>
         </div>
 
-        <button class="btn btn-danger w-25 mb-5 add">SignUp</button>
+        <button class="btn btn-danger w-25 add">SignUp</button>
+        <a href="/login" class="login">Alerady have account ? Log in here</a>
       </form>
     </div>
   </div>

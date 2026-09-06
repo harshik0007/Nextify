@@ -175,6 +175,30 @@ body {
   font-size: 1.5rem;
 }
 
+/* password toggle login/sign up pages */
+.show-hide-forget-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.show-hide-forget-container button {
+  font-size: 0.75rem !important;
+}
+
+
+.show-hide-forget-container a,
+.login {
+  text-decoration: none;
+  font-size: 0.75rem;
+  padding-top: 0.2rem;
+}
+
+.login {
+  display: block;
+  margin-bottom: 2rem;
+}
+
 @media (max-width: 1000px) {
   .error_img img {
     width: 90% !important;
