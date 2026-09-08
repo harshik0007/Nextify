@@ -10,7 +10,9 @@
         <a class="nav-link" href="/">Home</a>
         <!-- <a class="nav-link" href="/listings">All Listings</a> -->
         <a class="nav-link" href="/listings/new">Create a New</a>
-        <a class="nav-link" href="/">See Your Listings</a>
+        <%if(currUser){%>
+        <a class="nav-link" href="/listings/<%=currUser._id%>/<%=currUser.username%>">See Your Listings</a>
+        <%}%>
         <a class="nav-link" href="/">Profile</a>
       </div>
       <div class="navbar-nav ms-auto">

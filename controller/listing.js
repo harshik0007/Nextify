@@ -86,3 +86,9 @@ module.exports.renderEditForm = async (req, res) => {
 
     res.render("listings/edit.ejs", { listing, originalUrl });
 }
+
+module.exports.personalCreatedShowCase = async (req, res, next) => {
+    const { userId, username } = req.params;
+    const allPersonalListings = await Listing.find({ owner: `${userId}` });
+    res.render("listings/personalListing.ejs", { allPersonalListings, username });
+}
