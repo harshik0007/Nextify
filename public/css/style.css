@@ -202,6 +202,12 @@ body {
   margin-bottom: 2rem;
 }
 
+/* map */
+#map {
+  width: 100%;
+  height: 70vh;
+}
+
 @media (max-width: 1000px) {
   .error_img img {
     width: 90% !important;
