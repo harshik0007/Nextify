@@ -7,7 +7,7 @@
     </div>
 
     <div class=" listing-card card col-md-10 offset-md-1 col-10 offset-1">
-      <img src="<%= listing.image %>" class="card-img-top show-img" alt="Image" />
+      <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="Image" />
       <div class="card-body">
         <p class="card-text mt-1">
           Owned by <b><i><%= listing.owner.username %></i></b>
@@ -72,7 +72,7 @@
           <p class="starability-result" data-rating="<%= listing.reviews[i].rating %>">
           </p>
 
-          <% if(listing.reviews[i].author._id.equals(currUser._id)){ %>
+          <% if(currUser && listing.reviews[i].author._id.equals(currUser._id)){ %>
           <form action="/listings/<%= listing._id %>/reviews/<%= listing.reviews[i]._id %>?_method=DELETE" method="POST">
             <button class="btn btn-sm btn-dark">Delete</button>
           </form>
