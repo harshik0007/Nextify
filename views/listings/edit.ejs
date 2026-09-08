@@ -19,6 +19,11 @@
         </div>
 
         <div class="mb-3">
+          <p>Original Image(For preview only)</p>
+          <img src="<%= originalUrl %>" alt="image_preview" height="175px" width="250px">
+        </div>
+
+        <div class="mb-3">
           <label for="image" class="form-label">Upload New Image: </label>
           <input type="file" name="listing[image]" id="image" class="form-control" data-validate data-required="true" />
           <div class="invalid-feedback"></div>
