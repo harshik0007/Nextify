@@ -1,0 +1,31 @@
+<% layout("/layouts/boilerplate") %>
+
+<body>
+  <h3 class="mt-3 mb-2">Search Result For <span style="color: #FF385C;"><%=q%></span> </h3>
+  <%if(searchResult.length > 0){%>
+  <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <% for(let i = 0; i < searchResult.length; i++) { %>
+
+    <a href="/listings/<%= searchResult[i]._id %>" class="listing-link">
+      <div class="listing-card card col">
+        <img src="<%= searchResult[i].image.url %>" class="card-img-top" alt="image" style="height: 20rem;">
+
+        <div class="card-img-overlay">
+        </div>
+
+        <div class="card-body">
+          <p class="card-text mb-0">
+            <b><%= searchResult[i].title %></b><br>
+            &#8377; <%= searchResult[i].price.toLocaleString("en-IN") %> / night
+          </p>
+        </div>
+      </div>
+    </a>
+    <% } %>
+  </div>
+  <%} else {%>
+  <div style="margin-left: 0 auto; margin-top: 200px; width: 100%;">
+    <p style="text-align: center;">Not Found</p>
+  </div>
+  <%}%>
+</body>

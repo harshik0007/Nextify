@@ -22,6 +22,9 @@ router
 router.get("/new", isLoggedIn, listingController.renderNewForm
 );
 
+router.get("/search", wrapAsync(listingController.search));
+
+router.get("/search-suggestions", wrapAsync(listingController.searchSuggestions));
 
 router
     .route("/:id")
@@ -44,6 +47,5 @@ router.get(
 );
 
 router.get("/:userId/:username", isLoggedIn, wrapAsync(listingController.personalCreatedShowCase));
-
 
 module.exports = router;

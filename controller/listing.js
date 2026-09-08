@@ -92,3 +92,34 @@ module.exports.personalCreatedShowCase = async (req, res, next) => {
     const allPersonalListings = await Listing.find({ owner: `${userId}` });
     res.render("listings/personalListing.ejs", { allPersonalListings, username });
 }
+
+module.exports.search = async (req, res, next) => {
+    let { q } = req.query;
+    const searchResult = await Listing.find({
+        $or: [
+            { title: { $regex: q, $options: "i" } },
+            { description: { $regex: q, $options: "i" } },
+            { location: { $regex: q, $options: "i" } },
+            { country: { $regex: q, $options: "i" } },
+        ]
+    });
+    res.render("listings/search.ejs", { searchResult, q });
+}
+
+module.exports.searchSuggestions = async (req, res, next) => {
+    let { q } = req.query;
+    if (!q || !q.trim()) {
+        return res.json([]);
+    }
+    const searchResult = await Listing.find({
+        $or: [
+            { title: { $regex: q, $options: "i" } },
+            { description: { $regex: q, $options: "i" } },
+            { location: { $regex: q, $options: "i" } },
+            { country: { $regex: q, $options: "i" } },
+        ]
+    }).select("title location country")
+        .limit(5);
+
+    res.json(searchResult);
+}

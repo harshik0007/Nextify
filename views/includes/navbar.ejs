@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-light border-bottom sticky-top">
+<nav class="navbar navbar-expand-lg bg-body-light border-bottom sticky-top d-flex flex-column justify-content-between">
   <div class="container-fluid">
     <a class="navbar-brand" href="/"><img src="/images/logo_image.png" alt="logo" class="logo_image" />
       <span class="logo_text">Nextify</span></a>
@@ -24,5 +24,12 @@
         <%}%>
       </div>
     </div>
+  </div>
+  <div class="searchContainer w-100" >
+    <form method="get" action="/listings/search" class="d-flex justify-content-center" role="search">
+        <input class="form-control me-2 search-input search" type="search" placeholder="Search destination, places..." name="q" autocomplete="on"/>
+        <button class="btn btn-outline-danger" type="submit">Search</button>
+    </form>
+    <div id="suggestions"></div>
   </div>
 </nav>
