@@ -14,8 +14,7 @@ router
     )
     .post(
         isLoggedIn,
-        validateListing,
-        upload.single("listing[image]"),
+        upload.single("listing[image]"), validateListing,
         wrapAsync(listingController.createListingPost),)
     ;
 
@@ -28,7 +27,7 @@ router
     .route("/:id")
     .put(
         isLoggedIn, isOwner,
-        validateListing,
+        upload.single("listing[image]"), validateListing,
         wrapAsync(listingController.updateListingPut),)
     .delete(
         isLoggedIn, isOwner,
