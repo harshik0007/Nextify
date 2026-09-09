@@ -5,7 +5,20 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true
-    }
+    },
+    fullname: {
+        type: String,
+    },
+    bio: {
+        type: String,
+    },
+    location: {
+        type: String,
+    },
+    image: {
+        url: String,
+        filename: String
+    },
 });
 
 userSchema.plugin(passportLocalMongoose);

@@ -1,0 +1,79 @@
+<% layout("/layouts/boilerplate") %>
+
+<body>
+  <div class="row ">
+    <div class="col-md-8 offset-md-2 col-10 offset-1 mb-3">
+
+      <h3 class="mt-4 mb-3">
+        <span style="color: #ff385c;">Profile</span>
+      </h3>
+
+      <div class="row profile-container">
+
+        <div class="profile-image">
+          <img src="<%= user.image?.url || '/images/logo_image.png' %>" alt="Profile image">
+        </div>
+
+        <div class="profile-info">
+
+          <div>
+            <%= user.fullname || "Add your full name" %>
+          </div>
+
+          <div>
+            @<%= user.username %>
+          </div>
+
+          <div>
+            📍 <%= user.location || "Add your location" %>
+          </div>
+
+        </div>
+
+        <div class="profile-bio">
+          <div>
+            <%= user.bio || "Add a bio to tell people about yourself." %>
+          </div>
+        </div>
+
+        <div class="profile-edit text-center mt-5 d-flex justify-content-around">
+          <a href="/user/<%= user._id %>/edit">
+            <button class="btn btn-danger">Edit Profile</button>
+          </a>
+          <a href="/user/<%= user._id %>/change-password">
+            <button class="btn btn-danger">Change Password</button>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <% if(allPersonalListings.length > 0){%>
+  <div class=" mt-2 mb-3 h-1 col-md-8 offset-md-2 col-10 offset-1 border-top">
+  </div>
+  <div class="row col-md-8 offset-md-2 col-10 offset-1">
+    <h4 class="mt-2"><span style="color: #FF385C;">@<%=user.username.toUpperCase()%>,</span> Your Listings</h4>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-sm-1">
+      <% for(let i = 0; i < allPersonalListings.length; i++) { %>
+
+      <a href="/listings/<%= allPersonalListings[i]._id %>" class="listing-link">
+        <div class="listing-card card col">
+          <img src="<%= allPersonalListings[i].image.url %>" class="card-img-top" alt="image" style="height: 20rem;">
+
+          <div class="card-img-overlay">
+          </div>
+
+          <div class="card-body">
+            <p class="card-text mb-0">
+              <b><%= allPersonalListings[i].title %></b><br>
+              &#8377; <%= allPersonalListings[i].price.toLocaleString("en-IN") %> / night
+            </p>
+          </div>
+        </div>
+      </a>
+      <% } %>
+    </div>
+  </div>
+  <%}%>
+
+</body>

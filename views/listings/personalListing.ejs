@@ -2,6 +2,7 @@
 
 <body>
   <h4 class="mt-2"><span style="color: #FF385C;">@<%=username.toUpperCase()%>,</span> Your Listings</h4>
+  <%if(allPersonalListings.length){%>
   <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
     <% for(let i = 0; i < allPersonalListings.length; i++) { %>
 
@@ -22,4 +23,9 @@
     </a>
     <% } %>
   </div>
+  <%} else {%>
+  <div style="margin-left: 0 auto; margin-top: 200px; width: 100%;">
+    <p style="text-align: center;">You do not have created any Listings</p>
+  </div>
+  <%}%>
 </body>

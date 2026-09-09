@@ -1,0 +1,57 @@
+<% layout("/layouts/boilerplate") %>
+
+<body>
+  <div class="row">
+    <div class="col-md-8 offset-md-2 col-10 offset-1">
+      <h3 class="mt-4 mb-3"><span style="color: #ff385c;">Edit</span> Your Profile</h3>
+      <form class="validateForm" method="Post" action="/user/<%=user._id%>?_method=PUT" novalidate enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="fullname" class="form-label">Fullname: </label>
+          <input type="text" placeholder="abc xyz" name="fullname" value="<%=user.fullname%>" id="fullname" class="form-control" data-validate data-required="true" data-min-length-s="3" />
+          <div class="invalid-feedback"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="username" class="form-label">Username: </label>
+          <input type="text" placeholder="abc1234" name="username" value="<%=user.username%>" id="username" class="form-control" data-validate data-required="true" data-min-length-s="3" />
+          <div class="valid-feedback">Good Username</div>
+          <div class="invalid-feedback"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email: </label>
+          <input disabled type="text" name="email" id="email" value="<%=user.email%>" placeholder="abc@gmail.com" class="form-control" data-validate data-required="true" data-email="true" />
+          <div class="invalid-feedback"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="location" class="form-label">Location: </label>
+          <input type="text" placeholder="Gujarat, Rajkot" name="location" value="<%=user.location%>" id="location" class="form-control" data-validate data-required="true" data-min-length-s="3" />
+          <div class="invalid-feedback"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="bio" class="form-label">Bio: </label>
+          <input type="text" placeholder="I am excited" name="bio" value="<%=user.bio%>" id="bio" class="form-control" data-validate data-required="true" data-min-length-s="3" />
+          <div class="valid-feedback">Good Username</div>
+          <div class="invalid-feedback"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="image" class="form-label">Upload Profile Image:</label>
+          <input type="file" name="image" id="image" class="form-control" data-validate data-validate data-max-size="5242880" data-max-files="1" data-types="image/jpeg,image/png,image/jpg" />
+          <div class="invalid-feedback"></div>
+        </div>
+
+        <div class="mb-3 password_div">
+          <label for="password" class="form-label">Password: </label>
+          <input type="password" placeholder="********" name="password" id="password" class="form-control" data-validate data-required="true" />
+          <div class="invalid-feedback"></div>
+          <a href="/" class="login">Forget Password ?</a>
+        </div>
+
+        <button class="btn btn-danger w-25 add mb-3">Edit</button>
+      </form>
+    </div>
+  </div>
+</body>
