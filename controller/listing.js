@@ -4,8 +4,14 @@ const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 module.exports.index = async (req, res) => {
+    let { page = 1, limit = 8 } = req.query;
+    page = parseInt(page);
+    let skip = (page - 1) * limit;
     const allListings = await Listing.find({});
-    res.render("listings/index.ejs", { allListings });
+    const Listings = await Listing.find({}).skip(skip).limit(limit);
+    let total_pages = Math.ceil(allListings.length / limit);
+    console.log(total_pages);
+    res.render("listings/index.ejs", { Listings, total_pages, page, limit });
 }
 
 module.exports.showListing = async (req, res) => {

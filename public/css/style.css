@@ -324,6 +324,28 @@ body {
   font-style: italic;
 }
 
+/* pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page_navigators {
+  color: #ff385c;
+  font-size: 2rem;
+}
+
+.total_pages_num {
+  font-size: 1.75rem;
+  padding: 0 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+
+
 @media (max-width: 1000px) {
   .error_img img {
     width: 90% !important;
