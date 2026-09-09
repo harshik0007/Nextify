@@ -29,6 +29,23 @@ router.get("/user/:userId/change-password", isLoggedIn, wrapAsync(userController
 
 router.put("/user/:userId/change-password", isLoggedIn, wrapAsync(userController.changepassword));
 
+router.get(
+    "/verify-email",
+    isLoggedIn,
+    wrapAsync(userController.showVerifyEmail)
+);
+
+router.post(
+    "/verify-email/send",
+    isLoggedIn,
+    wrapAsync(userController.sendVerificationOTP)
+);
+
+router.post(
+    "/verify-email",
+    isLoggedIn,
+    wrapAsync(userController.verifyEmail)
+);
 module.exports = router;
 
 

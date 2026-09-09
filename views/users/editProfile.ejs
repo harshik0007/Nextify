@@ -44,10 +44,14 @@
         </div>
 
         <div class="mb-3 password_div">
-          <label for="password" class="form-label">Password: </label>
+          <label for="password" class="form-label">Confirm Password: </label>
           <input type="password" placeholder="********" name="password" id="password" class="form-control" data-validate data-required="true" />
           <div class="invalid-feedback"></div>
-          <a href="/" class="login">Forget Password ?</a>
+          <div class="show-hide-forget-container">
+            <button type="button" class=" btn btn-outline-dark btn-sm password_toggler hide-password">Show Password</button>
+            <a href="/" class="login mt-2">Forget Password ?</a>
+          </div>
+
         </div>
 
         <button class="btn btn-danger w-25 add mb-3">Edit</button>

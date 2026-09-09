@@ -3,6 +3,7 @@ const { listingSchema } = require("./schema.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { reviewSchema } = require("./schema.js");
 const Review = require("./models/review.js");
+const User = require("./models/user.js");
 
 
 module.exports.isLoggedIn = (req, res, next) => {
@@ -60,4 +61,13 @@ module.exports.isReviewAuthor = async (req, res, next) => {
         return res.redirect(`/listings/${id}`);
     }
     next();
+}
+
+module.exports.isVerifiedAccount = async (req, res, next) => {
+    if (res.locals.currUser && res.locals.currUser.isVerified === true) {
+
+        return next();
+    }
+    req.flash("error", "First verify your account")
+    res.redirect("/user/profile")
 }

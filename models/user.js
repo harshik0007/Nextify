@@ -19,6 +19,23 @@ const userSchema = new mongoose.Schema({
         url: String,
         filename: String
     },
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+    verificationOTP: {
+        type: String,
+    },
+    verificationOTPExpires: {
+        type: Date
+    },
+    verificationAttempts: {
+        type: Number,
+        default: 0
+    },
+    verificationLockedUntil: {
+        type: Date
+    }
 });
 
 userSchema.plugin(passportLocalMongoose);

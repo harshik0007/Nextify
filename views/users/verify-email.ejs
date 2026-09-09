@@ -1,0 +1,26 @@
+<% layout("/layouts/boilerplate") %>
+
+<body>
+  <div class="row">
+    <div class="col-md-8 offset-md-2 col-10 offset-1">
+      <h3 class="mt-4 mb-4"><span style="color: #ff385c;">Verify</span> Your Account</h3>
+      <form class="validateForm" method="Post" action="/verify-email" novalidate>
+        <div class="mb-3">
+          <label for="verificationOTP" class="form-label">Enter Otp: </label>
+          <input type="text" placeholder="******" name="verificationOTP" id="verificationOTP" class="form-control" data-validate data-required="true" data-number-length="6" />
+          <div class="invalid-feedback"></div>
+        </div>
+
+
+
+        <button class="btn btn-danger w-25 add mt-3 mb-2">Verify Otp</button>
+      </form>
+      <form action="/verify-email/send" method="POST">
+        <button type="submit" style="color: #ff385c; display: block; background: none; border: none; padding: 0; cursor: pointer;">
+          Resend OTP
+        </button>
+      </form>
+
+    </div>
+  </div>
+</body>

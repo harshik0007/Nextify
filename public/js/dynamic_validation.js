@@ -73,6 +73,15 @@ class Dynamic_validation {
             }
         },
 
+        numberLength: {
+            validate: (value, length) => {
+                return value.length === Number(length);
+            },
+            message: (length) => {
+                return `Must contain ${length} digit number & only numbers`;
+            }
+        },
+
         sameAs: {
             validate: (value, otherFieldId) => {
                 const otherField = document.getElementById(otherFieldId);

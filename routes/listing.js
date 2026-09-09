@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const wrapAsync = require("../utils/wrapAsync.js");
-const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
+const { isLoggedIn, isOwner, validateListing, isVerifiedAccount } = require("../middleware.js");
 const listingController = require("../controller/listing.js");
 const multer = require('multer');
 const { storage, cloudinary } = require("../cloudConfig.js");
@@ -13,13 +13,13 @@ router
         wrapAsync(listingController.index),
     )
     .post(
-        isLoggedIn,
+        isLoggedIn, isVerifiedAccount,
         upload.single("listing[image]"), validateListing,
         wrapAsync(listingController.createListingPost),)
     ;
 
 //new route
-router.get("/new", isLoggedIn, listingController.renderNewForm
+router.get("/new", isLoggedIn, isVerifiedAccount, listingController.renderNewForm
 );
 
 router.get("/search", wrapAsync(listingController.search));
@@ -29,11 +29,11 @@ router.get("/search-suggestions", wrapAsync(listingController.searchSuggestions)
 router
     .route("/:id")
     .put(
-        isLoggedIn, isOwner,
+        isLoggedIn, isVerifiedAccount, isOwner,
         upload.single("listing[image]"), validateListing,
         wrapAsync(listingController.updateListingPut),)
     .delete(
-        isLoggedIn, isOwner,
+        isLoggedIn, isVerifiedAccount, isOwner,
         wrapAsync(listingController.deleteListings),)
     .get(
         wrapAsync(listingController.showListing),
@@ -42,10 +42,10 @@ router
 
 //Edit form route
 router.get(
-    "/:id/edit", isLoggedIn, isOwner,
+    "/:id/edit", isLoggedIn, isVerifiedAccount, isOwner,
     wrapAsync(listingController.renderEditForm),
 );
 
-router.get("/:userId/:username", isLoggedIn, wrapAsync(listingController.personalCreatedShowCase));
+router.get("/:userId/:username", isLoggedIn, isVerifiedAccount, wrapAsync(listingController.personalCreatedShowCase));
 
 module.exports = router;
