@@ -279,3 +279,258 @@ module.exports.verifyEmail = async (req, res, next) => {
     req.flash("success", "Email verified successfully!");
     res.redirect("/listings");
 };
+
+module.exports.forgotPasswordForm = (req, res) => {
+    res.render("users/forgot_password.ejs");
+};
+
+module.exports.sendForgotPasswordOTP = async (req, res) => {
+    const { email } = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+        req.flash("error", "No account found with this email.");
+        return res.redirect("/forgot-password");
+    }
+
+    // Check lock
+    if (
+        user.resetLockedUntil &&
+        user.resetLockedUntil > new Date()
+    ) {
+        req.flash(
+            "error",
+            "Too many incorrect attempts. Try again after 10 minutes."
+        );
+
+        return res.redirect("/forgot-password");
+    }
+
+    // Lock expired
+    if (
+        user.resetLockedUntil &&
+        user.resetLockedUntil <= new Date()
+    ) {
+        user.resetLockedUntil = undefined;
+        user.resetAttempts = 0;
+    }
+
+    // New reset process
+    user.resetVerified = false;
+
+    // Generate 6-digit OTP
+    const otp = crypto.randomInt(100000, 1000000).toString();
+
+    user.resetOTP = otp;
+    user.resetOTPExpires = new Date(
+        Date.now() + 10 * 60 * 1000
+    );
+
+    await user.save();
+
+    // Remember email for this reset process
+    req.session.resetEmail = user.email;
+
+    await sendMail(
+        user.email,
+        "Nextify Password Reset",
+        `Your password reset OTP is ${otp}. It expires in 10 minutes.`
+    );
+
+    req.flash("success", "OTP sent to your email.");
+
+    res.redirect("/forgot-password/verify");
+};
+
+
+module.exports.verifyForgotPasswordForm = (req, res) => {
+    if (!req.session.resetEmail) {
+        req.flash("error", "Please request an OTP first.");
+        return res.redirect("/forgot-password");
+    }
+
+    res.render("users/verify_forgot_password.ejs");
+};
+
+
+module.exports.verifyForgotPassword = async (req, res) => {
+    const { otp } = req.body;
+
+    const email = req.session.resetEmail;
+
+    if (!email) {
+        req.flash("error", "Please request a new OTP.");
+        return res.redirect("/forgot-password");
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+        req.flash("error", "User not found.");
+        return res.redirect("/forgot-password");
+    }
+
+    // Check lock
+    if (
+        user.resetLockedUntil &&
+        user.resetLockedUntil > new Date()
+    ) {
+        req.flash(
+            "error",
+            "Too many incorrect attempts. Try again after 10 minutes."
+        );
+
+        return res.redirect("/forgot-password/verify");
+    }
+
+    // Lock expired
+    if (
+        user.resetLockedUntil &&
+        user.resetLockedUntil <= new Date()
+    ) {
+        user.resetLockedUntil = undefined;
+        user.resetAttempts = 0;
+
+        await user.save();
+    }
+
+    // Check OTP expiry
+    if (
+        !user.resetOTPExpires ||
+        user.resetOTPExpires < new Date()
+    ) {
+        req.flash(
+            "error",
+            "OTP has expired. Please request a new OTP."
+        );
+
+        return res.redirect("/forgot-password");
+    }
+
+    // Wrong OTP
+    if (user.resetOTP !== otp) {
+        user.resetAttempts += 1;
+
+        if (user.resetAttempts >= 3) {
+            user.resetLockedUntil = new Date(
+                Date.now() + 10 * 60 * 1000
+            );
+
+            await user.save();
+
+            req.flash(
+                "error",
+                "Too many incorrect attempts. Verification is locked for 10 minutes."
+            );
+
+            return res.redirect("/forgot-password/verify");
+        }
+
+        await user.save();
+
+        req.flash(
+            "error",
+            `Invalid OTP. ${3 - user.resetAttempts} attempts remaining.`
+        );
+
+        return res.redirect("/forgot-password/verify");
+    }
+
+    // Correct OTP
+    user.resetVerified = true;
+    user.resetOTP = undefined;
+    user.resetOTPExpires = undefined;
+
+    await user.save();
+
+    req.flash("success", "OTP verified successfully.");
+
+    res.redirect("/forgot-password/reset");
+};
+
+module.exports.resetPasswordForm = async (req, res) => {
+    const email = req.session.resetEmail;
+
+    if (!email) {
+        req.flash(
+            "error",
+            "Please start the password reset process first."
+        );
+
+        return res.redirect("/forgot-password");
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+        req.flash("error", "User not found.");
+        return res.redirect("/forgot-password");
+    }
+
+    // Only verified users can access reset password page
+    if (!user.resetVerified) {
+        req.flash(
+            "error",
+            "Please verify your OTP first."
+        );
+
+        return res.redirect("/forgot-password/verify");
+    }
+
+    res.render("users/reset_password.ejs");
+};
+
+module.exports.resetPassword = async (req, res) => {
+    const { new_password } = req.body;
+
+    const email = req.session.resetEmail;
+
+    if (!email) {
+        req.flash(
+            "error",
+            "Password reset session expired. Please start again."
+        );
+
+        return res.redirect("/forgot-password");
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+        req.flash("error", "User not found.");
+        return res.redirect("/forgot-password");
+    }
+
+    // OTP must be verified before changing password
+    if (!user.resetVerified) {
+        req.flash(
+            "error",
+            "Please verify your OTP first."
+        );
+
+        return res.redirect("/forgot-password/verify");
+    }
+
+    // Change password
+    await user.setPassword(new_password);
+
+    // Clear reset data
+    user.resetVerified = false;
+    user.resetOTP = undefined;
+    user.resetOTPExpires = undefined;
+    user.resetAttempts = 0;
+    user.resetLockedUntil = undefined;
+
+    await user.save();
+
+    // Clear reset session
+    req.session.resetEmail = undefined;
+
+    req.flash(
+        "success",
+        "Password reset successfully. Please login."
+    );
+
+    res.redirect("/login");
+};

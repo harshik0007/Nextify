@@ -46,6 +46,36 @@ router.post(
     isLoggedIn,
     wrapAsync(userController.verifyEmail)
 );
+
+router.get(
+    "/forgot-password",
+    userController.forgotPasswordForm
+);
+
+router.post(
+    "/forgot-password/send-otp",
+    wrapAsync(userController.sendForgotPasswordOTP)
+);
+
+router.get(
+    "/forgot-password/verify",
+    userController.verifyForgotPasswordForm
+);
+
+router.post(
+    "/forgot-password/verify",
+    wrapAsync(userController.verifyForgotPassword)
+);
+
+router.get(
+    "/forgot-password/reset",
+    userController.resetPasswordForm
+);
+
+
+router.post(
+    "/forgot-password/reset",
+    wrapAsync(userController.resetPassword)
+);
+
 module.exports = router;
-
-

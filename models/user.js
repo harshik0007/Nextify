@@ -35,7 +35,27 @@ const userSchema = new mongoose.Schema({
     },
     verificationLockedUntil: {
         type: Date
-    }
+    },
+    resetOTP: {
+        type: String
+    },
+
+    resetOTPExpires: {
+        type: Date
+    },
+
+    resetAttempts: {
+        type: Number,
+        default: 0
+    },
+
+    resetLockedUntil: {
+        type: Date
+    },
+    resetVerified: {
+        type: Boolean,
+        default: false
+    },
 });
 
 userSchema.plugin(passportLocalMongoose);
