@@ -23,6 +23,27 @@
     </a>
     <% } %>
   </div>
+  <div class="pagination mb-3">
+    <%if(page > 1){%>
+    <div class="previous_container">
+      <a href="/listings/search?q=<%= encodeURIComponent(q) %>&page=<%=page-1%>&limit=<%=limit%>">
+        <i class="fa-solid fa-circle-left page_navigators"></i></a>
+    </div>
+
+    <%}%>
+    
+  <div class="total_pages_num">
+      <%=page%> / <%=total_pages%>
+  </div>
+  <%if(total_pages > page){%>
+  <div class="next_container">
+    <a href="/listings/search?q=<%= encodeURIComponent(q) %>&page=<%=page+1%>&limit=<%=limit%>">
+      <i class="fa-solid fa-circle-right page_navigators"></i>
+
+    </a>
+  </div>
+  <%}%>
+</div>
   <%} else {%>
   <div style="margin-left: 0 auto; margin-top: 200px; width: 100%;">
     <p style="text-align: center;">Not Found</p>

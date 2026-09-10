@@ -1,3 +1,4 @@
+const { number } = require("joi");
 const Listing = require("../models/listing");
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapToken = process.env.MAP_TOKEN;
@@ -94,13 +95,30 @@ module.exports.renderEditForm = async (req, res) => {
 }
 
 module.exports.personalCreatedShowCase = async (req, res, next) => {
+    let { page = 1, limit = 6 } = req.query;
+    page = Number(page);
+    let skip = (page - 1) * limit;
     const { userId, username } = req.params;
     const allPersonalListings = await Listing.find({ owner: `${userId}` });
-    res.render("listings/personalListing.ejs", { allPersonalListings, username });
+    const personalListings = await Listing.find({ owner: `${userId}` }).skip(skip).limit(limit);
+    let total_pages = Math.ceil(allPersonalListings.length / limit);
+    console.log(total_pages)
+    res.render("listings/personalListing.ejs", { personalListings, username, userId, total_pages, page, limit });
 }
 
 module.exports.search = async (req, res, next) => {
     let { q } = req.query;
+    let { page = 1, limit = 6 } = req.query;
+    page = Number(page);
+    let skip = (page - 1) * limit;
+    const allSearchResult = await Listing.find({
+        $or: [
+            { title: { $regex: q, $options: "i" } },
+            { description: { $regex: q, $options: "i" } },
+            { location: { $regex: q, $options: "i" } },
+            { country: { $regex: q, $options: "i" } },
+        ]
+    })
     const searchResult = await Listing.find({
         $or: [
             { title: { $regex: q, $options: "i" } },
@@ -108,8 +126,10 @@ module.exports.search = async (req, res, next) => {
             { location: { $regex: q, $options: "i" } },
             { country: { $regex: q, $options: "i" } },
         ]
-    });
-    res.render("listings/search.ejs", { searchResult, q });
+    }).skip(skip).limit(limit);
+    let total_pages = Math.ceil(allSearchResult.length / limit);
+    console.log(total_pages)
+    res.render("listings/search.ejs", { searchResult, q, total_pages, page, limit });
 }
 
 module.exports.searchSuggestions = async (req, res, next) => {

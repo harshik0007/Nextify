@@ -47,8 +47,14 @@ module.exports.logout = (req, res, next) => {
 
 module.exports.profile = async (req, res, next) => {
     let user = await User.findById(req.user);
+    let { page = 1, limit = 6 } = req.query;
+    page = Number(page);
+    let skip = (page - 1) * limit;
     let allPersonalListings = await Listing.find({ owner: req.user._id });
-    res.render("users/profile.ejs", { user, allPersonalListings });
+    let personalListings = await Listing.find({ owner: req.user._id }).skip(skip).limit(limit);
+    let total_pages = Math.ceil(allPersonalListings.length / limit);
+
+    res.render("users/profile.ejs", { user, personalListings, total_pages, page, limit });
 }
 
 module.exports.profileEditForm = async (req, res, next) => {
