@@ -7,9 +7,9 @@
     </button>
     <div class="collapse navbar-collapse bg-white" id="navbarNav">
       <div class="navbar-nav">
-        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/">Explore</a>
         <!-- <a class="nav-link" href="/listings">All Listings</a> -->
-        <a class="nav-link" href="/listings/new">Create a New</a>
+        <a class="nav-link" href="/listings/new">Add Listing</a>
         <%if(currUser){%>
         <a class="nav-link" href="/listings/<%=currUser._id%>/<%=currUser.username%>">See Your Listings</a>
         <a class="nav-link" href="/user/profile">Profile</a>
@@ -17,10 +17,10 @@
       </div>
       <div class="navbar-nav ms-auto">
         <%if(!currUser){%>
-        <a class="nav-link" href="/signup">SignUp</a>
-        <a class="nav-link" href="/login">Login</a>
+        <a class="nav-link" href="/signup"><b>SignUp</b></a>
+        <a class="nav-link" href="/login"><b>Login</b></a>
         <%} else {%>
-        <a class="nav-link" href="/logout">Logout</a>
+        <a class="nav-link" href="/logout"><b>Logout</b></a>
         <%}%>
       </div>
     </div>

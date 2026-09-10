@@ -1,7 +1,147 @@
 <% layout("/layouts/boilerplate") %>
+<style>
+  #filters {
+    display: flex;
+    margin-top: 2rem;
+    width: 60vw;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+  }
+
+  #filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter {
+    text-align: center;
+    margin-right: 3rem;
+    opacity: 0.8;
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .filter:hover {
+    opacity: 1;
+    color: #ff385c;
+  }
+
+  .filter p {
+    font-size: 0.7rem;
+
+  }
+
+  .filter-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .filter_navigation i {
+    font-size: 1.5rem;
+    color: #ff385c;
+  }
+</style>
 
 <body>
-  <h3 class="mt-2">All Listings</h3>
+  <div class="filter-container">
+    <div class="filter_navigation me-2"><i class="fa-solid fa-circle-arrow-left"></i></div>
+    <div id="filters" class="mb-2">
+
+      <div class="filter">
+        <div><i class="fa-solid fa-fire"></i></div>
+        <p>
+          Tranding
+        </p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-solid fa-house"></i></div>
+        <p>
+          Room
+        </p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-solid fa-campground"></i></div>
+        <p>
+          Campfire
+        </p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-brands fa-fort-awesome"></i></div>
+        <p>
+          Castle
+        </p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-solid fa-umbrella-beach"></i></div>
+        <p>
+          Beach
+        </p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-solid fa-mountain-sun"></i></div>
+        <p>
+          Mountain
+        </p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-solid fa-star"></i></i></div>
+        <p>
+          Top Rated
+        </p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-solid fa-tractor"></i></div>
+        <p>
+          Farm
+        </p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-solid fa-mountain-city"></i></div>
+        <p>
+          Mountain City
+        </p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-solid fa-person-swimming"></i></div>
+        <p>
+          Amazing Pools
+        </p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-solid fa-sailboat"></i></div>
+        <p>
+          Boats
+        </p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-solid fa-snowflake"></i></div>
+        <p>
+          Arctic
+        </p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-solid fa-dog"></i></div>
+        <p>
+          Pet Friendly
+        </p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-solid fa-gem"></i></div>
+        <p>
+          Luxury
+        </p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-solid fa-hotel"></i></div>
+        <p>
+          Hotels/Resorts
+        </p>
+      </div>
+    </div>
+    <div class="filter_navigation ms-2"><i class="fa-solid fa-circle-arrow-right"></i></div>
+  </div>
   <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
     <% for(let i = 0; i < Listings.length; i++) { %>
 
@@ -45,3 +185,24 @@
   <%}%>
   </div>
 </body>
+
+<script>
+const filters = document.querySelector("#filters");
+
+const leftBtn = document.querySelector(".filter_navigation:first-child");
+const rightBtn = document.querySelector(".filter_navigation:last-child");
+
+rightBtn.addEventListener("click", () => {
+    filters.scrollBy({
+        left: 300,
+        behavior: "smooth"
+    });
+});
+
+leftBtn.addEventListener("click", () => {
+    filters.scrollBy({
+        left: -300,
+        behavior: "smooth"
+    });
+});
+</script>

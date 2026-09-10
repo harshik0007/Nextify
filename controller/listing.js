@@ -102,7 +102,7 @@ module.exports.personalCreatedShowCase = async (req, res, next) => {
     const allPersonalListings = await Listing.find({ owner: `${userId}` });
     const personalListings = await Listing.find({ owner: `${userId}` }).skip(skip).limit(limit);
     let total_pages = Math.ceil(allPersonalListings.length / limit);
-    console.log(total_pages)
+
     res.render("listings/personalListing.ejs", { personalListings, username, userId, total_pages, page, limit });
 }
 
