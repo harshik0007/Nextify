@@ -105,10 +105,13 @@
       <h4 class="mb-4">All Reviews</h4>
       <div class="row d-flex justify-content-between">
         <% for(i = 0; i < listing.reviews.length; i++) { %>
-        <div class="card col-md-5 mb-3 ms-2 p-2">
-          <h5 class="carr-title">@<%= listing.reviews[i].author.username %></h5>
-          <p class="card-text"><%= listing.reviews[i].comment %></p>
-          <p class="starability-result" data-rating="<%= listing.reviews[i].rating %>">
+        <div class="card col-lg-5 mb-3 ms-2 p-3">
+          <div class="d-flex align-items-center">
+            <img src="<%= listing.reviews[i].author?.image?.url || '/images/logo_image.png' %>" alt="User" height="35px" width="35px" style="border-radius: 50%; box-shadow: 0px 0px 4px black;">
+            <h5 class="carr-title" style="margin: 0; margin-left: 1rem;">@<%=listing.reviews[i].author.username %></h5>
+          </div>
+          <p class=" card-text" style="margin-left: 3.2rem;"><%= listing.reviews[i].comment %></p>
+          <p class="starability-result" style="margin-left: 3rem;" data-rating="<%= listing.reviews[i].rating %>">
           </p>
 
           <% if(currUser && listing.reviews[i].author._id.equals(currUser._id)){ %>

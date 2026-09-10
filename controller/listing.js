@@ -22,6 +22,7 @@ module.exports.showListing = async (req, res) => {
             path: "author"
         }
     }).populate("owner");
+    console.log(listing);
     if (!listing) {
         req.flash("error", "Listing You Requested Does Not Exists!");
         return res.redirect("/listings");
@@ -92,18 +93,6 @@ module.exports.renderEditForm = async (req, res) => {
     originalUrl = originalUrl.replace("/upload", "/upload/w_150");
 
     res.render("listings/edit.ejs", { listing, originalUrl });
-}
-
-module.exports.personalCreatedShowCase = async (req, res, next) => {
-    let { page = 1, limit = 6 } = req.query;
-    page = Number(page);
-    let skip = (page - 1) * limit;
-    const { userId, username } = req.params;
-    const allPersonalListings = await Listing.find({ owner: `${userId}` });
-    const personalListings = await Listing.find({ owner: `${userId}` }).skip(skip).limit(limit);
-    let total_pages = Math.ceil(allPersonalListings.length / limit);
-
-    res.render("listings/personalListing.ejs", { personalListings, username, userId, total_pages, page, limit });
 }
 
 module.exports.search = async (req, res, next) => {

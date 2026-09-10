@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-light border-bottom sticky-top d-flex flex-column justify-content-between">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><img src="/images/logo_image.png" alt="logo" class="logo_image" />
+    <a class="navbar-brand" href="/listings"><img src="/images/logo_image.png" alt="logo" class="logo_image" />
       <span class="logo_text">Nextify</span></a>
     <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
@@ -11,7 +11,6 @@
         <!-- <a class="nav-link" href="/listings">All Listings</a> -->
         <a class="nav-link" href="/listings/new">Add Listing</a>
         <%if(currUser){%>
-        <a class="nav-link" href="/listings/<%=currUser._id%>/<%=currUser.username%>">See Your Listings</a>
         <a class="nav-link" href="/user/profile">Profile</a>
         <%}%>
       </div>

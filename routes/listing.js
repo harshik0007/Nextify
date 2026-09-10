@@ -48,6 +48,4 @@ router.get(
     wrapAsync(listingController.renderEditForm),
 );
 
-router.get("/:userId/:username", isLoggedIn, isVerifiedAccount, wrapAsync(listingController.personalCreatedShowCase));
-
 module.exports = router;

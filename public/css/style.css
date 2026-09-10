@@ -53,7 +53,7 @@ body {
 }
 
 .search {
-  width: 50%;
+  width: 25%;
 }
 
 .search-box {
@@ -344,11 +344,144 @@ body {
   align-items: center;
 }
 
+/* Category style */
 
+.filter_tax_switch_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#filters {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  width: 50vw;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+#filters::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-mid-con {
+  display: flex;
+  align-items: center;
+}
+
+.filter {
+  text-align: center;
+  margin-right: 3rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.filter p {
+  font-size: 0.7rem;
+
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+}
+
+.filter_navigation i {
+  font-size: 1.5rem;
+  color: #ff385c;
+}
+
+.filter-link {
+  text-decoration: none;
+  color: black;
+  opacity: 0.7;
+  transition: all 0.15s ease-in-out;
+}
+
+.filter-link:hover {
+  opacity: 1;
+  color: #ff385c;
+}
+
+#filter_min_screen {
+  position: fixed;
+  z-index: 99;
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: 0px 0px 5px black;
+  top: 8rem;
+  left: 0.5rem;
+  height: 500px;
+  width: 250px;
+  overflow: scroll;
+  padding: 1rem;
+  display: none;
+}
+
+#filter_min_screen::-webkit-scrollbar {
+  display: none;
+}
+
+.fa-xmark {
+  cursor: pointer;
+  font-size: 1.25rem;
+}
+
+.filter_min_options {
+  margin: 1rem;
+}
+
+#filter_min_screen ul {
+  width: 100%;
+}
+
+.filter_min_options a i {
+  margin-right: 0.5rem;
+}
+
+.filter-button-con {
+  display: none;
+}
+
+/* tax */
+
+.form-switch {
+  border: 1px solid black;
+  border-radius: 1rem;
+  padding: 1rem;
+  padding-left: 3.5rem;
+  box-shadow: 0px 0px 4px black;
+}
+
+.taxDisplay {
+  display: none;
+}
 
 @media (max-width: 1000px) {
   .error_img img {
     width: 90% !important;
+  }
+
+  .filter-button-con {
+    display: block;
+  }
+
+  #filters,
+  .filter_navigation,
+  .filter-container {
+    display: none;
+  }
+
+  .filter_tax_switch_container {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .search {
+    width: 40%;
   }
 }
 
@@ -363,5 +496,9 @@ body {
 
   .error_img img {
     width: 100% !important;
+  }
+
+  .search {
+    width: 50.5%;
   }
 }
