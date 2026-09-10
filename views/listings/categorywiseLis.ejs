@@ -1,0 +1,48 @@
+<% layout("/layouts/boilerplate") %>
+
+<body>
+  <h4 class="mt-2"><span style="color: #FF385C;">Category-<%=c.toUpperCase()%>,</span></h4>
+  <%if(categoryMatch.length){%>
+  <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <% for(let i = 0; i < categoryMatch.length; i++) { %>
+
+    <a href="/listings/<%= categoryMatch[i]._id %>" class="listing-link">
+      <div class="listing-card card col">
+        <img src="<%= categoryMatch[i].image.url %>" class="card-img-top" alt="image" style="height: 20rem;">
+
+        <div class="card-img-overlay">
+        </div>
+
+        <div class="card-body">
+          <p class="card-text mb-0">
+            <b><%= categoryMatch[i].title %></b><br>
+            &#8377; <%= categoryMatch[i].price.toLocaleString("en-IN") %> / night
+          </p>
+        </div>
+      </div>
+    </a>
+    <% } %>
+  </div>
+  <div class="pagination mb-3">
+    <%if(page > 1){%>
+    <div class="previous_container">
+      <a href="/listings/category/<%=c%>?page=<%=page-1%>&limit=<%=limit%>">
+        <i class="fa-solid fa-circle-left page_navigators"></i></a>
+    </div>
+
+    <%}%>
+    
+  <div class="total_pages_num">
+      <%=page%> / <%=total_pages%>
+  </div>
+  <%if(total_pages > page){%>
+  <div class="next_container">
+    <a href="/listings/category/<%=c%>?page=<%=page+1%>&limit=<%=limit%>">
+      <i class="fa-solid fa-circle-right page_navigators"></i>
+
+    </a>
+  </div>
+  <%}%>
+  </div>
+  <%}%>
+</body>

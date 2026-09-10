@@ -117,6 +117,7 @@ module.exports.search = async (req, res, next) => {
             { description: { $regex: q, $options: "i" } },
             { location: { $regex: q, $options: "i" } },
             { country: { $regex: q, $options: "i" } },
+            { category: { $regex: q, $options: "i" } }
         ]
     })
     const searchResult = await Listing.find({
@@ -125,6 +126,7 @@ module.exports.search = async (req, res, next) => {
             { description: { $regex: q, $options: "i" } },
             { location: { $regex: q, $options: "i" } },
             { country: { $regex: q, $options: "i" } },
+            { category: { $regex: q, $options: "i" } }
         ]
     }).skip(skip).limit(limit);
     let total_pages = Math.ceil(allSearchResult.length / limit);
@@ -143,9 +145,25 @@ module.exports.searchSuggestions = async (req, res, next) => {
             { description: { $regex: q, $options: "i" } },
             { location: { $regex: q, $options: "i" } },
             { country: { $regex: q, $options: "i" } },
+            { category: { $regex: q, $options: "i" } }
         ]
-    }).select("title location country")
+    }).select("title location country category")
         .limit(5);
 
     res.json(searchResult);
+}
+
+module.exports.categoryviseListings = async (req, res, next) => {
+    let { category: c } = req.params;
+    let { page = 1, limit = 6 } = req.query;
+    page = Number(page);
+    let skip = (page - 1) * limit;
+    const allCategoryMatch = await Listing.find({ category: c });
+    if (allCategoryMatch.length == 0) {
+        req.flash("error", `No any Listing found in ${c} category`);
+        return res.redirect("/listings");
+    }
+    const categoryMatch = await Listing.find({ category: c }).skip(skip).limit(limit);
+    let total_pages = Math.ceil(allCategoryMatch.length / limit);
+    res.render("listings/categorywiseLis.ejs", { categoryMatch, c, total_pages, page, limit });
 }

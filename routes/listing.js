@@ -26,6 +26,8 @@ router.get("/search", wrapAsync(listingController.search));
 
 router.get("/search-suggestions", wrapAsync(listingController.searchSuggestions));
 
+router.get("/category/:category", wrapAsync(listingController.categoryviseListings));
+
 router
     .route("/:id")
     .put(

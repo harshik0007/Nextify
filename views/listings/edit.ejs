@@ -29,6 +29,28 @@
           <div class="invalid-feedback"></div>
         </div>
 
+        <div class="mb-3">
+          <label for="category" class="form-label">Category:</label>
+          <select class="form-select form-select" name="listing[category]" id="category" data-validate data-required="true">
+            <option value="Trending" <%= listing.category === "Trending" ? "selected" : "" %>>Trending</option>
+            <option value="Room" <%= listing.category === "Room" ? "selected" : "" %>>Room</option>
+            <option value="Camping" <%= listing.category === "Camping" ? "selected" : "" %>>Camping</option>
+            <option value="Castle" <%= listing.category === "Castle" ? "selected" : "" %>>Castle</option>
+            <option value="Beach" <%= listing.category === "Beach" ? "selected" : "" %>>Beach</option>
+            <option value="Mountain" <%= listing.category === "Mountain" ? "selected" : "" %>>Mountain</option>
+            <option value="Top Rated" <%= listing.category === "Top Rated" ? "selected" : "" %>>Top Rated</option>
+            <option value="Farm" <%= listing.category === "Farm" ? "selected" : "" %>>Farm</option>
+            <option value="Mountain City" <%= listing.category === "Mountain City" ? "selected" : "" %>>Mountain City</option>
+            <option value="Amazing Pools" <%= listing.category === "Amazing Pools" ? "selected" : "" %>>Amazing Pools</option>
+            <option value="Boats" <%= listing.category === "Boats" ? "selected" : "" %>>Boats</option>
+            <option value="Arctic" <%= listing.category === "Arctic" ? "selected" : "" %>>Arctic</option>
+            <option value="Pet Friendly" <%= listing.category === "Pet Friendly" ? "selected" : "" %>>Pet Friendly</option>
+            <option value="Luxury" <%= listing.category === "Luxury" ? "selected" : "" %>>Luxury</option>
+            <option value="Hotels_Resorts" <%= listing.category === "Hotels_Resorts" ? "selected" : "" %>>Hotels/Resorts</option>
+            <option value="City" <%= listing.category === "City" ? "selected" : "" %>>City</option>
+          </select>
+        </div>
+
         <div class="row">
           <div class="mb-3 col-md-4">
             <label for="price" class="form-label">Price: </label>

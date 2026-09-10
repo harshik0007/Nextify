@@ -19,14 +19,13 @@ input.addEventListener("input", async () => {
     suggestions.innerHTML = "";
 
     result.forEach(listing => {
-
         const link = document.createElement("a");
 
         link.classList.add("suggestion");
 
         link.href = `/listings/${listing._id}`;
 
-        link.innerText = `${listing.title} - ${listing.location}`;
+        link.innerText = `${listing.title} - ${listing.category} - ${listing.location}`;
 
         suggestions.appendChild(link);
     });
