@@ -73,6 +73,9 @@ app.use(flash()); //make sure use before routes
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.get("/test", (req, res) => {
+  res.send("Google route is working");
+});
 passport.use(new LocalStrategy(User.authenticate()));
 
 passport.use(
