@@ -17,15 +17,16 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const MongoStore = require("connect-mongo").default;
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/nextify";
+const db_url = process.env.ATLASDB_URL;
 
 main()
   .then((res) => console.log("Successfully connection built"))
   .catch((e) => console.log(e));
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(db_url);
 }
 
 app.set("view engine", "ejs");
@@ -38,9 +39,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.engine("ejs", ejsMate);
 
+const store = MongoStore.create({
+  mongoUrl: db_url,
+  crypto: {
+    secret: process.env.SECRET,
+  },
+  touchAfter: 24 * 3600,
+})
+
+store.on("error", () => {
+  console.log("ERROR IN MONGO SESSION STORE", error);
+})
 
 const sessionOptions = {
-  secret: "supersecretrarecodestring",
+  store,
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
