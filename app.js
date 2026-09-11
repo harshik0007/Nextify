@@ -73,9 +73,6 @@ app.use(flash()); //make sure use before routes
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.get("/test", (req, res) => {
-  res.send("Google route is working");
-});
 passport.use(new LocalStrategy(User.authenticate()));
 
 passport.use(
@@ -83,7 +80,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "https://nextify-vwbr.onrender.com/auth/google/callback",
+      callbackURL: "https://nextify-wwbr.onrender.com/auth/google/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       console.log(profile);
