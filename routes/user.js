@@ -7,7 +7,7 @@ const { saveRedirectUrl, isLoggedIn } = require("../middleware.js");
 const userController = require("../controller/user.js");
 const multer = require('multer');
 const { storage, cloudinary } = require("../cloudConfig.js");
-const upload = multer({ storage })
+const upload = multer({ storage });
 
 router.route("/signup")
     .get(userController.redirectSignup)
@@ -76,6 +76,23 @@ router.get(
 router.post(
     "/forgot-password/reset",
     wrapAsync(userController.resetPassword)
+);
+
+router.get(
+    "/auth/google",
+    passport.authenticate("google", {
+        scope: ["profile", "email"],
+    })
+);
+
+router.get(
+    "/auth/google/callback",
+    passport.authenticate("google", {
+        failureRedirect: "/login",
+    }),
+    (req, res) => {
+        res.redirect("/listings");
+    }
 );
 
 module.exports = router;

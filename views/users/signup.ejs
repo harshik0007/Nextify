@@ -1,7 +1,7 @@
 <% layout("/layouts/boilerplate") %>
 
 <body>
-  <div class="row">
+  <div class="row mb-4">
     <div class="col-md-8 offset-md-2 col-10 offset-1">
       <h3 class="mt-4 mb-3"><span style="color: #ff385c;">Create</span> a New Account</h3>
       <form class="validateForm" method="Post" action="/signup" novalidate>
@@ -36,6 +36,11 @@
         <button class="btn btn-danger w-25 add">SignUp</button>
         <a href="/login" class="login">Alerady have account ? Log in here</a>
       </form>
+    </div>
+    <div class="col-md-8 offset-md-2 col-10 offset-1">
+      <a href="/auth/google" class="btn btn-outline-dark w-100 d-flex align-items-center justify-content-center">
+        <img src="/images/google.png" alt="google_login" height="28px" width="28px">&nbsp;&nbsp;<span style="font-size: 1.1rem;">Continue with Google</span>
+      </a>
     </div>
   </div>
 </body>
