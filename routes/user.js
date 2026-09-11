@@ -9,6 +9,9 @@ const multer = require('multer');
 const { storage, cloudinary } = require("../cloudConfig.js");
 const upload = multer({ storage });
 
+router.get("/test-google", (req, res) => {
+    res.send("Google route is working");
+});
 router.route("/signup")
     .get(userController.redirectSignup)
     .post(wrapAsync(userController.signup));

@@ -110,9 +110,7 @@ app.use((req, res, next) => {
   // console.log(res.locals.currUser);
   next();
 })
-router.get("/test-google", (req, res) => {
-  res.send("Google route is working");
-});
+
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
